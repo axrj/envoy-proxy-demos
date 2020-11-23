@@ -17,6 +17,23 @@ services:
       # Map the host port 8000 to container port 8000, and the host port 8001 to container port 8001
       - "8000:8000"
       - "8001:8001"
+  front-envoy2:
+    build:
+      context: ../apps
+      dockerfile: Dockerfile-frontenvoy2
+    volumes:
+      - ./front-envoy2.yaml:/etc/front-envoy.yaml
+    networks:
+      - envoymesh
+    expose:
+      # Expose ports 80 (for general traffic) and 8001 (for the admin server)
+      - "8002"
+      - "8003"
+    ports:
+      # Map the host port 8000 to container port 8000, and the host port 8001 to container port 8001
+      - "8002:8002"
+      - "8003:8003"
+
 
   service_green:
     build:
